@@ -191,21 +191,21 @@ export default function CheckStatusPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-6">
+    <div className="min-h-screen bg-white p-6">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Check Verification Status</h1>
-          <p className="text-slate-400">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Check Verification Status</h1>
+          <p className="text-gray-600">
             Look up your fee payment verification details using your email, index number, or verification ID
           </p>
         </div>
 
         {/* Search Card */}
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-white border-gray-200 shadow-lg">
           <CardHeader>
-            <CardTitle className="text-white">Search Verification</CardTitle>
-            <CardDescription className="text-slate-400">
+            <CardTitle className="text-gray-900">Search Verification</CardTitle>
+            <CardDescription className="text-gray-600">
               Enter your information to check if your fee payment has been verified
             </CardDescription>
           </CardHeader>
@@ -250,7 +250,7 @@ export default function CheckStatusPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="search" className="text-white">
+              <Label htmlFor="search" className="text-gray-900">
                 {searchType === "email" && "Email Address"}
                 {searchType === "index" && "Index Number"}
                 {searchType === "id" && "Verification ID"}
@@ -268,7 +268,7 @@ export default function CheckStatusPage() {
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                className="bg-slate-900 border-slate-700 text-white"
+                className="bg-white border-gray-300 text-gray-900"
               />
             </div>
 
@@ -299,28 +299,28 @@ export default function CheckStatusPage() {
                         This student has successfully verified their fee payment.
                       </p>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-900/50 rounded-lg p-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-green-50 rounded-lg p-4">
                         <div>
-                          <p className="text-xs text-green-300 uppercase font-semibold">Name</p>
-                          <p className="text-white font-medium">{status.name}</p>
+                          <p className="text-xs text-green-700 uppercase font-semibold">Name</p>
+                          <p className="text-gray-900 font-medium">{status.name}</p>
                         </div>
                         <div>
-                          <p className="text-xs text-green-300 uppercase font-semibold">Email</p>
-                          <p className="text-white font-medium">{status.email}</p>
+                          <p className="text-xs text-green-700 uppercase font-semibold">Email</p>
+                          <p className="text-gray-900 font-medium">{status.email}</p>
                         </div>
                         <div>
-                          <p className="text-xs text-green-300 uppercase font-semibold">Index Number</p>
-                          <p className="text-white font-medium">{status.index_number}</p>
+                          <p className="text-xs text-green-700 uppercase font-semibold">Index Number</p>
+                          <p className="text-gray-900 font-medium">{status.index_number}</p>
                         </div>
                         <div>
-                          <p className="text-xs text-green-300 uppercase font-semibold">Verified On</p>
-                          <p className="text-white font-medium">
+                          <p className="text-xs text-green-700 uppercase font-semibold">Verified On</p>
+                          <p className="text-gray-900 font-medium">
                             {new Date(status.verified_at!).toLocaleDateString()}
                           </p>
                         </div>
                       </div>
 
-                      <div className="bg-slate-900 rounded-lg p-4 mt-4 text-center">
+                      <div className="bg-gray-900 rounded-lg p-4 mt-4 text-center">
                         <p className="text-xs text-green-300 uppercase font-semibold mb-2">
                           Verification ID
                         </p>
@@ -368,24 +368,24 @@ export default function CheckStatusPage() {
         )}
 
         {/* Info Card */}
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-blue-50 border-blue-200">
           <CardContent className="pt-6">
-            <h3 className="text-white font-semibold mb-3">ℹ️ How to Use This Page</h3>
-            <ul className="text-slate-300 space-y-2 text-sm">
+            <h3 className="text-gray-900 font-semibold mb-3">ℹ️ How to Use This Page</h3>
+            <ul className="text-gray-700 space-y-2 text-sm">
               <li>
-                <strong className="text-white">For Students:</strong> Check if your payment has been
+                <strong className="text-gray-900">For Students:</strong> Check if your payment has been
                 verified and download your confirmation.
               </li>
               <li>
-                <strong className="text-white">For Admins:</strong> Quickly verify student payment status
+                <strong className="text-gray-900">For Admins:</strong> Quickly verify student payment status
                 without accessing the admin system.
               </li>
               <li>
-                <strong className="text-white">Search Options:</strong> Use email, index number, or
+                <strong className="text-gray-900">Search Options:</strong> Use email, index number, or
                 verification ID - whichever you have available.
               </li>
               <li>
-                <strong className="text-white">Download:</strong> Once verified, you can download an
+                <strong className="text-gray-900">Download:</strong> Once verified, you can download an
                 official HTML confirmation document.
               </li>
             </ul>

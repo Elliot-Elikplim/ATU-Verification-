@@ -73,7 +73,7 @@ export default function VerificationPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-4 flex flex-col">
+    <main className="min-h-screen bg-white p-4 flex flex-col">
       <header className="py-8 text-center mb-12">
         <div className="inline-flex items-center justify-center gap-3 mb-4">
           <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/80 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
@@ -85,8 +85,8 @@ export default function VerificationPage() {
       </header>
 
       <div className="flex items-center justify-center flex-1">
-        <Card className="w-full max-w-md shadow-2xl border-0">
-          <CardHeader className="space-y-2 bg-gradient-to-r from-primary/5 to-accent/5 border-b">
+        <Card className="w-full max-w-md shadow-2xl border">
+          <CardHeader className="space-y-2 bg-white border-b">
             <CardTitle className="text-2xl text-primary">Fee Verification Portal</CardTitle>
             <CardDescription className="text-base">
               Enter your details and verification code to confirm your fee payment status
@@ -104,7 +104,7 @@ export default function VerificationPage() {
                   value={formData.fullName}
                   onChange={handleChange}
                   required
-                  className="bg-input border-border focus:border-primary"
+                  className="bg-white border-gray-300 focus:border-primary"
                 />
               </div>
 
@@ -117,7 +117,7 @@ export default function VerificationPage() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="bg-input border-border focus:border-primary"
+                  className="bg-white border-gray-300 focus:border-primary"
                 />
               </div>
 
@@ -130,7 +130,7 @@ export default function VerificationPage() {
                   value={formData.indexNumber}
                   onChange={handleChange}
                   required
-                  className="bg-input border-border focus:border-primary"
+                  className="bg-white border-gray-300 focus:border-primary"
                 />
               </div>
 
@@ -143,7 +143,7 @@ export default function VerificationPage() {
                   value={formData.referenceCode}
                   onChange={handleChange}
                   required
-                  className="font-mono text-sm tracking-widest bg-input border-border focus:border-primary uppercase"
+                  className="font-mono text-sm tracking-widest bg-white border-gray-300 focus:border-primary uppercase"
                 />
                 <p className="text-xs text-muted-foreground">Format: CPS-XXXXX (provided by department)</p>
               </div>
