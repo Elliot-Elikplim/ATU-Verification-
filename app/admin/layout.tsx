@@ -7,6 +7,7 @@ import { LayoutDashboard, FileText, Users, ListChecks, Menu, Settings } from "lu
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 const navigation = [
   {
@@ -41,7 +42,14 @@ function Sidebar() {
 
   return (
     <div className="flex flex-col h-full bg-slate-800 border-r border-slate-700">
-      <div className="p-6">
+      <div className="p-6 flex items-center gap-3">
+        <Image 
+          src="/ATU-LOGO.png" 
+          alt="ATU Logo" 
+          width={40} 
+          height={40}
+          className="object-contain"
+        />
         <h2 className="text-xl font-bold text-white">Admin Panel</h2>
       </div>
       <nav className="flex-1 px-4 space-y-2">

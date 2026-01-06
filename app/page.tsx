@@ -10,6 +10,7 @@ import { localDB } from "@/lib/db"
 import { syncManager } from "@/lib/sync-manager"
 import { OfflineIndicator } from "@/components/offline-indicator"
 import { useSettings } from "@/lib/settings-store"
+import Image from "next/image"
 
 export default function VerificationPage() {
   const { offlineMode, apiEndpoint } = useSettings()
@@ -132,9 +133,14 @@ export default function VerificationPage() {
     <main className="min-h-screen bg-white p-4 flex flex-col">
       <header className="py-8 text-center mb-12">
         <div className="inline-flex items-center justify-center gap-3 mb-4">
-          <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/80 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
-            CS
-          </div>
+          <Image 
+            src="/ATU-LOGO.png" 
+            alt="ATU Logo" 
+            width={80} 
+            height={80}
+            className="object-contain"
+            priority
+          />
         </div>
         <h1 className="text-4xl font-bold text-primary mb-2">Computer Science Department</h1>
         <p className="text-lg text-muted-foreground">2026 Fee Verification Portal</p>
