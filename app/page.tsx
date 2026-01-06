@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { localDB } from "@/lib/db"
+import { syncManager } from "@/lib/sync-manager"
+import { OfflineIndicator } from "@/components/offline-indicator"
 
 export default function VerificationPage() {
   const [formData, setFormData] = useState({
@@ -46,27 +49,54 @@ export default function VerificationPage() {
     setIsLoading(true)
 
     try {
-      const response = await fetch("/api/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      })
+      // Check if online
+      const isOnline = typeof navigator !== 'undefined' && navigator.onLine
 
-      const data = await response.json()
+      if (isOnline) {
+        // Try online verification first
+        try {
+          const response = await fetch("/api/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          })
 
-      if (response.ok) {
-        // Redirect to success page
-        if (data.redirectUrl) {
-          window.location.href = data.redirectUrl
-        } else {
-          setMessage({ type: "success", text: data.message })
-          setFormData({ fullName: "", email: "", indexNumber: "", referenceCode: "" })
+          const data = await response.json()
+
+          if (response.ok) {
+            // Redirect to success page
+            if (data.redirectUrl) {
+              window.location.href = data.redirectUrl
+            } else {
+              setMessage({ type: "success", text: data.message })
+              setFormData({ fullName: "", email: "", indexNumber: "", referenceCode: "" })
+            }
+            return
+          } else {
+            setMessage({ type: "error", text: data.error || "Verification failed" })
+            return
+          }
+        } catch (fetchError) {
+          console.error("Online verification failed, falling back to offline mode:", fetchError)
+          // Fall through to offline mode
         }
-      } else {
-        setMessage({ type: "error", text: data.error || "Verification failed" })
+      }
+
+      // Offline mode or online request failed
+      await localDB.addVerification(formData)
+      setMessage({ 
+        type: "success", 
+        text: "Saved offline! Your verification will sync automatically when online." 
+      })
+      setFormData({ fullName: "", email: "", indexNumber: "", referenceCode: "" })
+      
+      // Trigger sync if online
+      if (isOnline) {
+        syncManager.forceSyncNow()
       }
     } catch (error) {
-      setMessage({ type: "error", text: "An error occurred. Please try again." })
+      console.error("Verification error:", error)
+      setMessage({ type: "error", text: "Failed to save verification. Please try again." })
     } finally {
       setIsLoading(false)
     }
@@ -187,6 +217,9 @@ export default function VerificationPage() {
           </CardContent>
         </Card>
       </div>
+      
+      {/* Offline indicator */}
+      <OfflineIndicator />
     </main>
   )
 }

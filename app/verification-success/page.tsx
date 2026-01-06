@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -15,7 +15,7 @@ interface VerificationData {
   verified_at: string
 }
 
-export default function VerificationSuccessPage() {
+function VerificationSuccessContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [userData, setUserData] = useState<VerificationData | null>(null)
@@ -284,5 +284,17 @@ export default function VerificationSuccessPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function VerificationSuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center">
+        <div className="text-white">Loading...</div>
+      </div>
+    }>
+      <VerificationSuccessContent />
+    </Suspense>
   )
 }
