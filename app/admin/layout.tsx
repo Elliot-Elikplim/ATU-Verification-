@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { LayoutDashboard, FileText, Users, ListChecks, Menu } from "lucide-react"
+import { LayoutDashboard, FileText, Users, ListChecks, Menu, Settings } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
@@ -28,6 +28,11 @@ const navigation = [
     name: "Verified Users",
     href: "/admin/verified-users",
     icon: Users,
+  },
+  {
+    name: "Settings",
+    href: "/admin/settings",
+    icon: Settings,
   },
 ]
 

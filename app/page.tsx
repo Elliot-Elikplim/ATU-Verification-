@@ -9,8 +9,10 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { localDB } from "@/lib/db"
 import { syncManager } from "@/lib/sync-manager"
 import { OfflineIndicator } from "@/components/offline-indicator"
+import { useSettings } from "@/lib/settings-store"
 
 export default function VerificationPage() {
+  const { offlineMode, apiEndpoint } = useSettings()
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -52,10 +54,34 @@ export default function VerificationPage() {
       // Check if online
       const isOnline = typeof navigator !== 'undefined' && navigator.onLine
 
+      // If offline mode is disabled, only try online
+      if (!offlineMode) {
+        const response = await fetch(`${apiEndpoint}/verify`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        })
+
+        const data = await response.json()
+
+        if (response.ok) {
+          if (data.redirectUrl) {
+            window.location.href = data.redirectUrl
+          } else {
+            setMessage({ type: "success", text: data.message })
+            setFormData({ fullName: "", email: "", indexNumber: "", referenceCode: "" })
+          }
+        } else {
+          setMessage({ type: "error", text: data.error || "Verification failed" })
+        }
+        return
+      }
+
+      // Offline mode enabled - try online first, fallback to local
       if (isOnline) {
         // Try online verification first
         try {
-          const response = await fetch("/api/verify", {
+          const response = await fetch(`${apiEndpoint}/verify`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),

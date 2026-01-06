@@ -6,6 +6,12 @@ class SyncManager {
   private syncInterval: NodeJS.Timeout | null = null
   private readonly SYNC_INTERVAL = 30000 // 30 seconds
   private readonly MAX_RETRIES = 5
+  private apiEndpoint = '/api'
+
+  // Set API endpoint
+  setApiEndpoint(endpoint: string) {
+    this.apiEndpoint = endpoint
+  }
 
   // Start automatic background sync
   startAutoSync() {
@@ -100,7 +106,7 @@ class SyncManager {
 
   // Sync verification to Supabase
   private async syncVerification(data: any) {
-    const response = await fetch('/api/verify', {
+    const response = await fetch(`${this.apiEndpoint}/verify`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -121,7 +127,7 @@ class SyncManager {
 
   // Sync code usage to Supabase
   private async syncCodeUsage(code: string) {
-    const response = await fetch('/api/sync/code-usage', {
+    const response = await fetch(`${this.apiEndpoint}/sync/code-usage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code }),
